@@ -1,13 +1,148 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>dashboard</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content fullscreen class="dashboard-content">
+  <div class="dashboard-wrapper">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <section class="hero-card">
+      <ion-menu-button menu="main-menu" class="menu-button"></ion-menu-button>
+
+      <div class="welcome-row">
+        <div class="logo-mini">
+          <img src="assets/logo-escuela.png" alt="Logo escuela" />
+        </div>
+
+        <div>
+          <p class="welcome-text">Bienvenido/a</p>
+          <h1>Ana María Barón López</h1>
+        </div>
+      </div>
+
+      <p class="school-name">Escuela Metropolitana La Luz</p>
+    </section>
+
+    <section class="summary-grid">
+      <div class="summary-card" routerLink="/report-cards/1">
+        <div class="summary-icon warning">✍</div>
+        <div>
+          <h2>3</h2>
+          <p>Pendientes</p>
+        </div>
+      </div>
+
+      <div class="summary-card" routerLink="/notifications">
+        <div class="summary-icon info">🔔</div>
+        <div>
+          <h2>3</h2>
+          <p>Notificaciones</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="action-card" routerLink="/report-cards/1">
+      <div class="action-icon">✍</div>
+      <div>
+        <h3>Acción requerida: firmar boletas</h3>
+        <p>Tiene 3 boletas del Segundo Trimestre pendientes por firmar</p>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-title-row">
+        <h2 class="section-title">Mis hijos</h2>
+        <button class="see-all-button" routerLink="/my-children">
+          Ver todos
+        </button>
+      </div>
+
+      <div class="student-card" routerLink="/report-cards/1">
+        <div class="student-avatar">👦</div>
+
+        <div class="student-info">
+          <h3>Andrés Jaramillo ...</h3>
+          <p>6° Primaria</p>
+
+          <div class="badges-row">
+            <span class="badge high"><span></span> Alto 9.4</span>
+            <span class="badge pending">1 pendiente</span>
+          </div>
+        </div>
+
+        <div class="chevron">›</div>
+      </div>
+
+      <div class="student-card" routerLink="/report-cards/2">
+        <div class="student-avatar">👦</div>
+
+        <div class="student-info">
+          <h3>Emiliano Jaramill...</h3>
+          <p>4° Primaria</p>
+
+          <div class="badges-row">
+            <span class="badge medium"><span></span> Medio 8.3</span>
+            <span class="badge pending">1 pendiente</span>
+          </div>
+        </div>
+
+        <div class="chevron">›</div>
+      </div>
+
+      <div class="student-card" routerLink="/report-cards/3">
+        <div class="student-avatar">👦</div>
+
+        <div class="student-info">
+          <h3>Hector Jaramillo ...</h3>
+          <p>2° Primaria</p>
+
+          <div class="badges-row">
+            <span class="badge medium"><span></span> Medio 7.8</span>
+            <span class="badge pending">1 pendiente</span>
+          </div>
+        </div>
+
+        <div class="chevron">›</div>
+      </div>
+    </section>
+
+    <section class="events-card">
+      <div class="events-title">
+        <span>▣</span>
+        <h2>Próximos eventos</h2>
+      </div>
+
+      <div class="event-item">
+        <div class="date-box">
+          <span>MAY</span>
+          <strong>17</strong>
+        </div>
+
+        <div class="event-info">
+          <h3>Junta de padres de familia</h3>
+          <p>18:00 hrs - Auditorio principal</p>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="date-box">
+          <span>JUN</span>
+          <strong>10</strong>
+        </div>
+
+        <div class="event-info">
+          <h3>Vencimiento colegiatura</h3>
+          <p>Pago correspondiente a junio</p>
+        </div>
+      </div>
+
+      <div class="event-item last">
+        <div class="date-box">
+          <span>JUN</span>
+          <strong>28</strong>
+        </div>
+
+        <div class="event-info">
+          <h3>Festival de fin de año</h3>
+          <p>16:00 hrs - Patio escolar</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
 </ion-content>

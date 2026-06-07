@@ -1,0 +1,58 @@
+<ion-content fullscreen class="notifications-content">
+  <div class="notifications-wrapper">
+
+    <section class="notifications-header">
+      <div class="header-top">
+        <ion-menu-button menu="main-menu" class="menu-button"></ion-menu-button>
+
+        <div class="bell-circle">
+          🔔
+        </div>
+      </div>
+
+      <button class="back-button" routerLink="/dashboard" type="button">
+        <span>←</span>
+        <strong>Volver</strong>
+      </button>
+
+      <div class="header-text">
+        <h1>Notificaciones</h1>
+        <p>3 nuevas notificaciones</p>
+      </div>
+    </section>
+
+    <section class="notifications-body">
+
+      <button class="read-all-button" (click)="markAllAsRead()">
+        ✓ Marcar todas como leídas
+      </button>
+
+      <div
+        class="notification-card"
+        *ngFor="let notification of notifications"
+        [class.unread]="!notification.read"
+      >
+        <div
+          class="notification-icon"
+          [class.warning]="notification.type === 'warning'"
+          [class.info]="notification.type === 'info'"
+          [class.success]="notification.type === 'success'"
+        >
+          {{ notification.icon }}
+        </div>
+
+        <div class="notification-info">
+          <div class="notification-title-row">
+            <h2>{{ notification.title }}</h2>
+            <span class="unread-dot" *ngIf="!notification.read"></span>
+          </div>
+
+          <p>{{ notification.description }}</p>
+          <span class="date">{{ notification.date }}</span>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</ion-content>

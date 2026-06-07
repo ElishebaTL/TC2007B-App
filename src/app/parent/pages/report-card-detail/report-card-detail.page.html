@@ -1,13 +1,127 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>report-card-detail</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content fullscreen class="detail-content">
+  <div class="detail-wrapper">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">report-card-detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <section class="detail-header">
+      <ion-menu-button menu="main-menu" class="menu-button"></ion-menu-button>
+
+      <button class="back-button" [routerLink]="['/report-cards', student.id]">
+        ← Volver
+      </button>
+
+      <div class="header-info">
+        <h1>{{ student.name }}</h1>
+        <p>{{ term.name }} · {{ term.period }}</p>
+      </div>
+    </section>
+
+    <section class="detail-section">
+
+      <div class="average-card">
+        <div class="average-top">
+          <div>
+            <p>Promedio General</p>
+            <strong>{{ term.average }}</strong>
+          </div>
+
+          <div class="average-badges">
+            <span
+              class="status-badge"
+              [class.signed]="signatureDone || term.status === 'Firmada'"
+              [class.pending]="!signatureDone && term.status === 'Sin firmar'"
+            >
+              {{ signatureDone || term.status === 'Firmada' ? '✓ Firmada' : 'ⓘ Sin firmar' }}
+            </span>
+
+            <span class="level-badge">● Alto {{ term.average }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="subjects-card">
+        <div class="subjects-title">
+          <h2>Calificaciones por materia</h2>
+          <p>8 materias</p>
+        </div>
+
+        <div class="subject-row" *ngFor="let subject of subjects">
+          <div>
+            <h3>{{ subject.name }}</h3>
+            <p>{{ subject.teacher }}</p>
+          </div>
+
+          <span class="subject-grade">Alto {{ subject.grade }}</span>
+        </div>
+      </div>
+
+      <button class="outline-button">
+        ⬇ Descargar PDF
+      </button>
+
+      <button class="sign-button" (click)="openSignatureModal()" *ngIf="!signatureDone">
+        ✓ Firmar boleta
+      </button>
+
+      <div class="signed-box" *ngIf="signatureDone">
+        <div class="check-icon">✓</div>
+        <p>Boleta firmada correctamente</p>
+      </div>
+
+      <button class="outline-button" routerLink="/comments">
+        ✉ Enviar comentarios
+      </button>
+
+    </section>
+
+    <div class="signature-backdrop" *ngIf="showSignatureModal">
+      <div class="signature-modal">
+
+        <div class="modal-header">
+          <h2>Firmar boleta</h2>
+          <button class="close-button" (click)="closeSignatureModal()">×</button>
+        </div>
+
+        <div class="student-box">
+          <p>Estudiante</p>
+          <h3>{{ student.name }}</h3>
+          <span>{{ term.name }}</span>
+        </div>
+
+        <div class="signature-label-row">
+          <label>Firme en el recuadro</label>
+          <button (click)="clearSignature()">Limpiar</button>
+        </div>
+
+        <div class="canvas-box">
+          <canvas
+            #signatureCanvas
+            width="330"
+            height="150"
+            (mousedown)="startDrawing($event)"
+            (mousemove)="draw($event)"
+            (mouseup)="stopDrawing()"
+            (mouseleave)="stopDrawing()"
+            (touchstart)="startDrawing($event)"
+            (touchmove)="draw($event)"
+            (touchend)="stopDrawing()">
+          </canvas>
+        </div>
+
+        <p class="signature-help">
+          Dibuje su firma con el dedo o el mouse
+        </p>
+
+        <div class="modal-actions">
+          <button class="cancel-button" (click)="closeSignatureModal()">
+            Cancelar
+          </button>
+
+          <button class="confirm-button" (click)="confirmSignature()">
+            ✓ Confirmar
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 </ion-content>

@@ -1,0 +1,287 @@
+.report-cards-content {
+  --background: #f4f7fb;
+}
+
+.report-cards-wrapper {
+  width: 100%;
+  max-width: 390px;
+  min-height: 100%;
+  margin: 0 auto;
+  background: #f4f7fb;
+  padding-bottom: 28px;
+}
+
+.top-header {
+  min-height: 185px;
+  padding: 24px 24px 28px;
+  background: #0b5cab;
+  color: #ffffff;
+  border-radius: 0 0 28px 28px;
+  box-shadow: 0 10px 24px rgba(11, 92, 171, 0.25);
+}
+
+.menu-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  --color: #334155;
+  --background: #ffffff;
+  color: #334155;
+  background: #ffffff;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 12px rgba(15, 23, 42, 0.14);
+}
+
+.back-button {
+  margin-top: 22px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.header-text {
+  margin-top: 34px;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 23px;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.header-text p {
+  margin: 10px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #dbeafe;
+}
+
+.student-main {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.student-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 13px;
+  background: #eaf4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  flex-shrink: 0;
+}
+
+.student-main .student-avatar {
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+}
+
+.student-main h1 {
+  margin: 0;
+  max-width: 230px;
+  font-size: 21px;
+  line-height: 1.25;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.student-main p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #dbeafe;
+}
+
+.cards-section {
+  padding: 22px 22px 0;
+}
+
+.student-report-card {
+  margin-bottom: 18px;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+}
+
+.student-card-header {
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid #e5eaf0;
+}
+
+.student-card-header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.student-card-header p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.term-row {
+  min-height: 74px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eef2f7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.term-row:last-child {
+  border-bottom: none;
+}
+
+.term-row:active {
+  transform: scale(0.98);
+}
+
+.term-row h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.term-row p {
+  margin: 6px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.term-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.term-right strong {
+  font-size: 24px;
+  font-weight: 900;
+  color: #0b5cab;
+}
+
+.mini-status {
+  width: 30px;
+  height: 24px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  border: 1px solid transparent;
+}
+
+.mini-status.signed {
+  background: #e9f9ef;
+  color: #17803d;
+  border-color: #bee8ca;
+}
+
+.mini-status.pending {
+  background: #fff1dc;
+  color: #b45309;
+  border-color: #f4d2a1;
+}
+
+.section-title {
+  margin: 0 0 18px;
+  font-size: 21px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.term-card {
+  margin-bottom: 16px;
+  padding: 22px 22px 20px;
+  border-radius: 13px;
+  background: #ffffff;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+}
+
+.term-card:active {
+  transform: scale(0.98);
+}
+
+.term-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.term-header h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.term-header p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.status-badge {
+  height: fit-content;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.status-badge.signed {
+  background: #e9f9ef;
+  color: #17803d;
+  border: 1px solid #bee8ca;
+}
+
+.status-badge.pending {
+  background: #fff1dc;
+  color: #b45309;
+  border: 1px solid #f4d2a1;
+}
+
+.average-row {
+  margin-top: 28px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.average-row span {
+  font-size: 14px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.average-row strong {
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 900;
+  color: #0b5cab;
+}

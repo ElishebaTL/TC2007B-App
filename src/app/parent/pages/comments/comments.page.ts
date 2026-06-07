@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { RouterLink } from '@angular/router';
+import {
+  IonContent,
+  IonMenuButton
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.page.html',
   styleUrls: ['./comments.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonMenuButton, RouterLink, FormsModule]
 })
-export class CommentsPage implements OnInit {
+export class CommentsPage {
+  newComment = '';
 
-  constructor() { }
+  sendComment() {
+    if (!this.newComment.trim()) {
+      return;
+    }
 
-  ngOnInit() {
+    console.log('Comentario enviado:', this.newComment);
+    this.newComment = '';
   }
-
 }

@@ -1,13 +1,95 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>report-cards</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content fullscreen class="report-cards-content">
+  <div class="report-cards-wrapper">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">report-cards</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <section class="top-header">
+      <ion-menu-button menu="main-menu" class="menu-button"></ion-menu-button>
+
+      <button class="back-button" routerLink="/dashboard">
+        ← Volver
+      </button>
+
+      <div class="header-text" *ngIf="!selectedStudent">
+        <h1>Todas las boletas</h1>
+        <p>Historial de calificaciones por estudiante</p>
+      </div>
+
+      <div class="student-main" *ngIf="selectedStudent">
+        <div class="student-avatar">👦</div>
+
+        <div>
+          <h1>{{ selectedStudent.name }}</h1>
+          <p>{{ selectedStudent.grade }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cards-section" *ngIf="!selectedStudent">
+
+      <div class="student-report-card" *ngFor="let student of students">
+        <div class="student-card-header">
+          <div class="student-avatar">👦</div>
+
+          <div>
+            <h2>{{ student.name }}</h2>
+            <p>{{ student.grade }}</p>
+          </div>
+        </div>
+
+        <div
+          class="term-row"
+          *ngFor="let term of student.terms"
+          [routerLink]="['/report-card-detail', student.id, term.id]"
+        >
+          <div>
+            <h3>{{ term.name }}</h3>
+            <p>{{ term.period }}</p>
+          </div>
+
+          <div class="term-right">
+            <strong>{{ term.average }}</strong>
+
+            <span
+              class="mini-status"
+              [class.signed]="term.status === 'Firmada'"
+              [class.pending]="term.status === 'Sin firmar'"
+            >
+              {{ term.status === 'Firmada' ? '✓' : '♙' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="cards-section" *ngIf="selectedStudent">
+      <h2 class="section-title">Historial de calificaciones</h2>
+
+      <div
+        class="term-card"
+        *ngFor="let term of selectedStudent.terms"
+        [routerLink]="['/report-card-detail', selectedStudent.id, term.id]"
+      >
+        <div class="term-header">
+          <div>
+            <h3>{{ term.name }}</h3>
+            <p>{{ term.period }}</p>
+          </div>
+
+          <span
+            class="status-badge"
+            [class.signed]="term.status === 'Firmada'"
+            [class.pending]="term.status === 'Sin firmar'"
+          >
+            {{ term.status === 'Firmada' ? '✓' : 'ⓘ' }} {{ term.status }}
+          </span>
+        </div>
+
+        <div class="average-row">
+          <span>Promedio general</span>
+          <strong>{{ term.average }}</strong>
+        </div>
+      </div>
+    </section>
+
+  </div>
 </ion-content>

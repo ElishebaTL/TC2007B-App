@@ -1,3 +1,63 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu menuId="main-menu" contentId="main-content" type="overlay" class="side-menu">
+    <ion-content class="menu-content">
+
+      <div class="menu-header">
+        <ion-menu-toggle menu="main-menu">
+          <button class="close-menu" type="button">×</button>
+        </ion-menu-toggle>
+
+        <div class="logo-box">
+          <img src="assets/logo-escuela.png" alt="Logo escuela" />
+        </div>
+
+        <h2>Escuela Metropolitana La Luz</h2>
+        <p>Portal de Padres</p>
+      </div>
+
+      <div class="menu-list">
+
+        <ion-menu-toggle menu="main-menu" auto-hide="true">
+          <a routerLink="/dashboard" routerLinkActive="active" class="menu-item">
+            <span class="menu-icon">⌂</span>
+            <span>Inicio</span>
+          </a>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle menu="main-menu" auto-hide="true">
+          <a routerLink="/my-children" routerLinkActive="active" class="menu-item">
+            <span class="menu-icon">👥</span>
+            <span>Mis hijos</span>
+          </a>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle menu="main-menu" auto-hide="true">
+          <a routerLink="/report-cards" routerLinkActive="active" class="menu-item">
+            <span class="menu-icon">▤</span>
+            <span>Boletas</span>
+          </a>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle menu="main-menu" auto-hide="true">
+          <a routerLink="/notifications" routerLinkActive="active" class="menu-item">
+            <span class="menu-icon">🔔</span>
+            <span>Notificaciones</span>
+          </a>
+        </ion-menu-toggle>
+
+      </div>
+
+      <div class="logout-section">
+        <ion-menu-toggle menu="main-menu" auto-hide="true">
+          <a routerLink="/login" class="logout-item">
+            <span class="menu-icon">↪</span>
+            <span>Cerrar sesión</span>
+          </a>
+        </ion-menu-toggle>
+      </div>
+
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>

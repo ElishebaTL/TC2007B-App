@@ -1,13 +1,56 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>comments</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content fullscreen class="comments-content">
+  <div class="comments-wrapper">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">comments</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <section class="comments-header">
+      <ion-menu-button menu="main-menu" class="menu-button"></ion-menu-button>
+
+      <button class="back-button" routerLink="/report-card-detail/1/1">
+        ← Volver
+      </button>
+
+      <div class="header-text">
+        <h1>Enviar comentarios</h1>
+        <p>Primer Trimestre</p>
+      </div>
+    </section>
+
+    <section class="comments-body">
+
+      <div class="select-card">
+        <label>Profesor y materia</label>
+
+        <div class="fake-select">
+          <span>Comentario general - Todos los profesores</span>
+          <span class="arrow">⌄</span>
+        </div>
+      </div>
+
+      <div class="message-card">
+        <p class="teacher-name">Prof. Pedro Martínez</p>
+
+        <p class="message-text">
+          Andrés demuestra un excelente dominio en matemáticas. Su razonamiento lógico
+          y dedicación son ejemplares. Continúe así.
+        </p>
+
+        <p class="message-date">
+          16 de marzo de 2026, 10:30
+        </p>
+      </div>
+
+    </section>
+
+    <div class="comment-input-bar">
+      <input
+        type="text"
+        placeholder="Escriba su comentario o pregunta..."
+        [(ngModel)]="newComment"
+      />
+
+      <button class="send-button" (click)="sendComment()">
+        ➤
+      </button>
+    </div>
+
+  </div>
 </ion-content>

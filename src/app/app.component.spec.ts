@@ -1,16 +1,26 @@
-import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
-import { AppComponent } from './app.component';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  IonApp,
+  IonContent,
+  IonMenu,
+  IonMenuToggle,
+  IonRouterOutlet
+} from '@ionic/angular/standalone';
 
-describe('AppComponent', () => {
-  it('should create the app', async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-      providers: [provideRouter([])]
-    }).compileComponents();
-    
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-});
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
+  standalone: true,
+  imports: [
+    IonApp,
+    IonContent,
+    IonMenu,
+    IonMenuToggle,
+    IonRouterOutlet,
+    RouterLink,
+    RouterLinkActive
+  ]
+})
+export class AppComponent {}

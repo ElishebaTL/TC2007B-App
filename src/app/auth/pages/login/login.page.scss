@@ -1,0 +1,120 @@
+.login-content {
+  --background: #eef5fc;
+}
+
+.login-wrapper {
+  min-height: 100%;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  padding: 42px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 34px;
+}
+
+.logo-box {
+  width: 108px;
+  height: 108px;
+  margin: 0 auto 24px;
+  border-radius: 22px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+}
+
+.logo-box img {
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+}
+
+.logo-section h1 {
+  margin: 0;
+  font-size: 21px;
+  line-height: 1.25;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.logo-section p {
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: #64748b;
+}
+
+.login-card {
+  margin: 0;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+}
+
+.login-card ion-card-content {
+  padding: 28px 28px 24px;
+}
+
+.input-group {
+  margin-bottom: 22px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #475569;
+}
+
+ion-input {
+  --background: #ffffff;
+  --color: #0f172a;
+  --placeholder-color: #94a3b8;
+  --placeholder-opacity: 1;
+  --border-color: #cbd5e1;
+  --border-radius: 22px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  min-height: 54px;
+  font-size: 15px;
+}
+
+.login-button {
+  margin-top: 18px;
+  height: 54px;
+  --border-radius: 22px;
+  --background: #0b5cab;
+  --background-hover: #084a8a;
+  --background-activated: #084a8a;
+  --color: #ffffff;
+  text-transform: none;
+  font-size: 16px;
+  font-weight: 800;
+  box-shadow: 0 8px 18px rgba(11, 92, 171, 0.28);
+}
+
+.forgot-password {
+  display: block;
+  margin-top: 24px;
+  text-align: center;
+  color: #0b5cab;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.help-text {
+  width: 85%;
+  margin: 28px auto 0;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #64748b;
+}

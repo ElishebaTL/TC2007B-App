@@ -6,10 +6,10 @@ import {
 } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.page.html',
-  styleUrls: ['./dashboard.page.scss'],
+  selector: 'app-my-children',
+  templateUrl: './my-children.page.html',
+  styleUrls: ['./my-children.page.scss'],
   standalone: true,
   imports: [IonContent, IonMenuButton, RouterLink]
 })
-export class DashboardPage {}
+export class MyChildrenPage {}
