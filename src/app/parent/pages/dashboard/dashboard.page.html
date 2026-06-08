@@ -11,7 +11,7 @@
 
         <div>
           <p class="welcome-text">Bienvenido/a</p>
-          <h1>Ana María Barón López</h1>
+          <h1>{{ parent?.fullName || 'Padre de familia' }}</h1>
         </div>
       </div>
 
@@ -19,10 +19,10 @@
     </section>
 
     <section class="summary-grid">
-      <div class="summary-card" routerLink="/report-cards/1">
+      <div class="summary-card" routerLink="/report-cards">
         <div class="summary-icon warning">✍</div>
         <div>
-          <h2>3</h2>
+          <h2>{{ pendingReportCards }}</h2>
           <p>Pendientes</p>
         </div>
       </div>
@@ -30,17 +30,21 @@
       <div class="summary-card" routerLink="/notifications">
         <div class="summary-icon info">🔔</div>
         <div>
-          <h2>3</h2>
+          <h2>{{ unreadNotifications }}</h2>
           <p>Notificaciones</p>
         </div>
       </div>
     </section>
 
-    <section class="action-card" routerLink="/report-cards/1">
+    <section class="action-card" routerLink="/report-cards" *ngIf="pendingReportCards > 0">
       <div class="action-icon">✍</div>
       <div>
         <h3>Acción requerida: firmar boletas</h3>
-        <p>Tiene 3 boletas del Segundo Trimestre pendientes por firmar</p>
+        <p>
+          Tiene {{ pendingReportCards }}
+          {{ pendingReportCards === 1 ? 'boleta pendiente' : 'boletas pendientes' }}
+          por firmar
+        </p>
       </div>
     </section>
 
@@ -52,48 +56,30 @@
         </button>
       </div>
 
-      <div class="student-card" routerLink="/report-cards/1">
+      <div
+        class="student-card"
+        *ngFor="let student of students"
+        [routerLink]="['/report-cards', student.id]"
+      >
         <div class="student-avatar">👦</div>
 
         <div class="student-info">
-          <h3>Andrés Jaramillo ...</h3>
-          <p>6° Primaria</p>
+          <h3>{{ student.fullName }}</h3>
+          <p>{{ student.grade }}</p>
 
           <div class="badges-row">
-            <span class="badge high"><span></span> Alto 9.4</span>
-            <span class="badge pending">1 pendiente</span>
-          </div>
-        </div>
+            <span
+              class="badge"
+              [class.high]="student.performanceLevel === 'Alto'"
+              [class.medium]="student.performanceLevel === 'Medio'"
+            >
+              <span></span>
+              {{ student.performanceLevel }} {{ student.average }}
+            </span>
 
-        <div class="chevron">›</div>
-      </div>
-
-      <div class="student-card" routerLink="/report-cards/2">
-        <div class="student-avatar">👦</div>
-
-        <div class="student-info">
-          <h3>Emiliano Jaramill...</h3>
-          <p>4° Primaria</p>
-
-          <div class="badges-row">
-            <span class="badge medium"><span></span> Medio 8.3</span>
-            <span class="badge pending">1 pendiente</span>
-          </div>
-        </div>
-
-        <div class="chevron">›</div>
-      </div>
-
-      <div class="student-card" routerLink="/report-cards/3">
-        <div class="student-avatar">👦</div>
-
-        <div class="student-info">
-          <h3>Hector Jaramillo ...</h3>
-          <p>2° Primaria</p>
-
-          <div class="badges-row">
-            <span class="badge medium"><span></span> Medio 7.8</span>
-            <span class="badge pending">1 pendiente</span>
+            <span class="badge pending" *ngIf="student.pendingReportCards > 0">
+              {{ student.pendingReportCards }} pendiente
+            </span>
           </div>
         </div>
 

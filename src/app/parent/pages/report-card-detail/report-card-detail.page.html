@@ -1,5 +1,5 @@
 <ion-content fullscreen class="detail-content">
-  <div class="detail-wrapper">
+  <div class="detail-wrapper" *ngIf="student && reportCard">
 
     <section class="detail-header">
       <ion-menu-button menu="main-menu" class="menu-button"></ion-menu-button>
@@ -9,8 +9,8 @@
       </button>
 
       <div class="header-info">
-        <h1>{{ student.name }}</h1>
-        <p>{{ term.name }} · {{ term.period }}</p>
+        <h1>{{ student.fullName }}</h1>
+        <p>{{ reportCard.termName }} · {{ reportCard.period }}</p>
       </div>
     </section>
 
@@ -20,19 +20,21 @@
         <div class="average-top">
           <div>
             <p>Promedio General</p>
-            <strong>{{ term.average }}</strong>
+            <strong>{{ reportCard.average }}</strong>
           </div>
 
           <div class="average-badges">
             <span
               class="status-badge"
-              [class.signed]="signatureDone || term.status === 'Firmada'"
-              [class.pending]="!signatureDone && term.status === 'Sin firmar'"
+              [class.signed]="signatureDone"
+              [class.pending]="!signatureDone"
             >
-              {{ signatureDone || term.status === 'Firmada' ? '✓ Firmada' : 'ⓘ Sin firmar' }}
+              {{ signatureDone ? '✓ Firmada' : 'ⓘ Sin firmar' }}
             </span>
 
-            <span class="level-badge">● Alto {{ term.average }}</span>
+            <span class="level-badge">
+              ● {{ student.performanceLevel }} {{ reportCard.average }}
+            </span>
           </div>
         </div>
       </div>
@@ -40,16 +42,18 @@
       <div class="subjects-card">
         <div class="subjects-title">
           <h2>Calificaciones por materia</h2>
-          <p>8 materias</p>
+          <p>{{ reportCard.subjects.length }} materias</p>
         </div>
 
-        <div class="subject-row" *ngFor="let subject of subjects">
+        <div class="subject-row" *ngFor="let subject of reportCard.subjects">
           <div>
-            <h3>{{ subject.name }}</h3>
-            <p>{{ subject.teacher }}</p>
+            <h3>{{ subject.subjectName }}</h3>
+            <p>{{ subject.teacherName }}</p>
           </div>
 
-          <span class="subject-grade">Alto {{ subject.grade }}</span>
+          <span class="subject-grade">
+            {{ subject.performanceLevel }} {{ subject.grade }}
+          </span>
         </div>
       </div>
 
@@ -66,7 +70,10 @@
         <p>Boleta firmada correctamente</p>
       </div>
 
-      <button class="outline-button" routerLink="/comments">
+      <button
+        class="outline-button"
+        [routerLink]="['/comments', student.id, reportCard.id]"
+      >
         ✉ Enviar comentarios
       </button>
 
@@ -82,8 +89,8 @@
 
         <div class="student-box">
           <p>Estudiante</p>
-          <h3>{{ student.name }}</h3>
-          <span>{{ term.name }}</span>
+          <h3>{{ student.fullName }}</h3>
+          <span>{{ reportCard.termName }}</span>
         </div>
 
         <div class="signature-label-row">

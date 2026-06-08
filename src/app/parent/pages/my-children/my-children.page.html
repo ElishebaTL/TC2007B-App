@@ -4,6 +4,11 @@
     <section class="children-header">
       <ion-menu-button menu="main-menu" class="menu-button"></ion-menu-button>
 
+      <button class="back-button" routerLink="/dashboard" type="button">
+        <span>←</span>
+        <strong>Volver</strong>
+      </button>
+
       <div class="header-text">
         <h1>Mis hijos</h1>
         <p>Seleccione un estudiante para ver el historial de calificaciones</p>
@@ -12,65 +17,30 @@
 
     <section class="children-list">
 
-      <div class="student-card" routerLink="/report-cards/1">
+      <div
+        class="student-card"
+        *ngFor="let student of students"
+        [routerLink]="['/report-cards', student.id]"
+      >
         <div class="student-avatar">👦</div>
 
         <div class="student-info">
-          <h2>Andrés Jaramillo Ba...</h2>
-          <p>6° Primaria</p>
+          <h2>{{ student.fullName }}</h2>
+          <p>{{ student.grade }}</p>
 
           <div class="badges-row">
-            <span class="badge high">
+            <span
+              class="badge"
+              [class.high]="student.performanceLevel === 'Alto'"
+              [class.medium]="student.performanceLevel === 'Medio'"
+              [class.low]="student.performanceLevel === 'Bajo'"
+            >
               <span></span>
-              Alto 9.4
+              {{ student.performanceLevel }} {{ student.average }}
             </span>
 
-            <span class="badge pending">
-              1 pendiente
-            </span>
-          </div>
-        </div>
-
-        <div class="chevron">›</div>
-      </div>
-
-      <div class="student-card" routerLink="/report-cards/2">
-        <div class="student-avatar">👦</div>
-
-        <div class="student-info">
-          <h2>Emiliano Jaramillo ...</h2>
-          <p>4° Primaria</p>
-
-          <div class="badges-row">
-            <span class="badge medium">
-              <span></span>
-              Medio 8.3
-            </span>
-
-            <span class="badge pending">
-              1 pendiente
-            </span>
-          </div>
-        </div>
-
-        <div class="chevron">›</div>
-      </div>
-
-      <div class="student-card" routerLink="/report-cards/3">
-        <div class="student-avatar">👦</div>
-
-        <div class="student-info">
-          <h2>Hector Jaramillo Ba...</h2>
-          <p>2° Primaria</p>
-
-          <div class="badges-row">
-            <span class="badge medium">
-              <span></span>
-              Medio 7.8
-            </span>
-
-            <span class="badge pending">
-              1 pendiente
+            <span class="badge pending" *ngIf="student.pendingReportCards > 0">
+              {{ student.pendingReportCards }} pendiente
             </span>
           </div>
         </div>

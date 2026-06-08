@@ -1,10 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   IonContent,
   IonMenuButton
 } from '@ionic/angular/standalone';
+
+import {
+  ReportCard,
+  Student
+} from '../../../core/models/school.models';
+
+import { SchoolDataService } from '../../../core/services/school-data.service';
 
 @Component({
   selector: 'app-report-cards',
@@ -13,80 +20,58 @@ import {
   standalone: true,
   imports: [CommonModule, IonContent, IonMenuButton, RouterLink]
 })
-export class ReportCardsPage {
-  students = [
-    {
-      id: '1',
-      name: 'Andrés Jaramillo Barón',
-      grade: '6° Primaria',
-      terms: [
-        {
-          id: '1',
-          name: 'Primer Trimestre',
-          period: 'Enero - Marzo 2026',
-          average: '9.4',
-          status: 'Firmada'
-        },
-        {
-          id: '2',
-          name: 'Segundo Trimestre',
-          period: 'Abril - Junio 2026',
-          average: '9.5',
-          status: 'Sin firmar'
-        }
-      ]
-    },
-    {
-      id: '2',
-      name: 'Emiliano Jaramillo Barón',
-      grade: '4° Primaria',
-      terms: [
-        {
-          id: '1',
-          name: 'Primer Trimestre',
-          period: 'Enero - Marzo 2026',
-          average: '8.3',
-          status: 'Firmada'
-        },
-        {
-          id: '2',
-          name: 'Segundo Trimestre',
-          period: 'Abril - Junio 2026',
-          average: '8.4',
-          status: 'Sin firmar'
-        }
-      ]
-    },
-    {
-      id: '3',
-      name: 'Hector Jaramillo Barón',
-      grade: '2° Primaria',
-      terms: [
-        {
-          id: '1',
-          name: 'Primer Trimestre',
-          period: 'Enero - Marzo 2026',
-          average: '7.8',
-          status: 'Firmada'
-        },
-        {
-          id: '2',
-          name: 'Segundo Trimestre',
-          period: 'Abril - Junio 2026',
-          average: '7.9',
-          status: 'Sin firmar'
-        }
-      ]
-    }
-  ];
+export class ReportCardsPage implements OnInit {
+  selectedStudent?: Student;
+  reportCards: ReportCard[] = [];
 
-  selectedStudent: any = null;
+  allReportCardsData: {
+    student: Student;
+    reportCards: ReportCard[];
+  }[] = [];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private schoolDataService: SchoolDataService
+  ) {}
+
+  ngOnInit() {
     const studentId = this.route.snapshot.paramMap.get('studentId');
 
     if (studentId) {
-      this.selectedStudent = this.students.find(student => student.id === studentId) || null;
+      this.loadReportCardsByStudent(studentId);
+    } else {
+      this.loadAllReportCards();
     }
+  }
+
+  loadReportCardsByStudent(studentId: string) {
+    this.schoolDataService.getStudentById(studentId).subscribe({
+      next: (student) => {
+        this.selectedStudent = student;
+      },
+      error: (error) => {
+        console.error('Error al cargar estudiante:', error);
+      }
+    });
+
+    this.schoolDataService.getReportCardsByStudent(studentId).subscribe({
+      next: (reportCards) => {
+        this.reportCards = reportCards;
+      },
+      error: (error) => {
+        console.error('Error al cargar boletas:', error);
+      }
+    });
+  }
+
+  loadAllReportCards() {
+    this.schoolDataService.getAllReportCardsByCurrentParent().subscribe({
+      next: (data) => {
+        this.allReportCardsData = data;
+      },
+      error: (error) => {
+        console.error('Error al cargar todas las boletas:', error);
+      }
+    });
   }
 }

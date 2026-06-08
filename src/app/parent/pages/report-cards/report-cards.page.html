@@ -17,7 +17,7 @@
         <div class="student-avatar">👦</div>
 
         <div>
-          <h1>{{ selectedStudent.name }}</h1>
+          <h1>{{ selectedStudent.fullName }}</h1>
           <p>{{ selectedStudent.grade }}</p>
         </div>
       </div>
@@ -25,35 +25,38 @@
 
     <section class="cards-section" *ngIf="!selectedStudent">
 
-      <div class="student-report-card" *ngFor="let student of students">
+      <div
+        class="student-report-card"
+        *ngFor="let item of allReportCardsData"
+      >
         <div class="student-card-header">
           <div class="student-avatar">👦</div>
 
           <div>
-            <h2>{{ student.name }}</h2>
-            <p>{{ student.grade }}</p>
+            <h2>{{ item.student.fullName }}</h2>
+            <p>{{ item.student.grade }}</p>
           </div>
         </div>
 
         <div
           class="term-row"
-          *ngFor="let term of student.terms"
-          [routerLink]="['/report-card-detail', student.id, term.id]"
+          *ngFor="let reportCard of item.reportCards"
+          [routerLink]="['/report-card-detail', item.student.id, reportCard.id]"
         >
           <div>
-            <h3>{{ term.name }}</h3>
-            <p>{{ term.period }}</p>
+            <h3>{{ reportCard.termName }}</h3>
+            <p>{{ reportCard.period }}</p>
           </div>
 
           <div class="term-right">
-            <strong>{{ term.average }}</strong>
+            <strong>{{ reportCard.average }}</strong>
 
             <span
               class="mini-status"
-              [class.signed]="term.status === 'Firmada'"
-              [class.pending]="term.status === 'Sin firmar'"
+              [class.signed]="reportCard.status === 'Firmada'"
+              [class.pending]="reportCard.status === 'Sin firmar'"
             >
-              {{ term.status === 'Firmada' ? '✓' : '♙' }}
+              {{ reportCard.status === 'Firmada' ? '✓' : '!' }}
             </span>
           </div>
         </div>
@@ -66,27 +69,27 @@
 
       <div
         class="term-card"
-        *ngFor="let term of selectedStudent.terms"
-        [routerLink]="['/report-card-detail', selectedStudent.id, term.id]"
+        *ngFor="let reportCard of reportCards"
+        [routerLink]="['/report-card-detail', selectedStudent.id, reportCard.id]"
       >
         <div class="term-header">
           <div>
-            <h3>{{ term.name }}</h3>
-            <p>{{ term.period }}</p>
+            <h3>{{ reportCard.termName }}</h3>
+            <p>{{ reportCard.period }}</p>
           </div>
 
           <span
             class="status-badge"
-            [class.signed]="term.status === 'Firmada'"
-            [class.pending]="term.status === 'Sin firmar'"
+            [class.signed]="reportCard.status === 'Firmada'"
+            [class.pending]="reportCard.status === 'Sin firmar'"
           >
-            {{ term.status === 'Firmada' ? '✓' : 'ⓘ' }} {{ term.status }}
+            {{ reportCard.status === 'Firmada' ? '✓' : 'ⓘ' }} {{ reportCard.status }}
           </span>
         </div>
 
         <div class="average-row">
           <span>Promedio general</span>
-          <strong>{{ term.average }}</strong>
+          <strong>{{ reportCard.average }}</strong>
         </div>
       </div>
     </section>

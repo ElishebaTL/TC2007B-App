@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnInit,
   ViewChild
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -10,6 +11,14 @@ import {
   IonContent,
   IonMenuButton
 } from '@ionic/angular/standalone';
+
+import {
+  ReportCard,
+  Student
+} from '../../../core/models/school.models';
+
+import { SchoolDataService } from '../../../core/services/school-data.service';
+
 @Component({
   selector: 'app-report-card-detail',
   templateUrl: './report-card-detail.page.html',
@@ -17,146 +26,55 @@ import {
   standalone: true,
   imports: [CommonModule, IonContent, IonMenuButton, RouterLink]
 })
-export class ReportCardDetailPage implements AfterViewInit {
+export class ReportCardDetailPage implements OnInit, AfterViewInit {
   @ViewChild('signatureCanvas') signatureCanvas?: ElementRef<HTMLCanvasElement>;
+
+  student?: Student;
+  reportCard?: ReportCard;
 
   showSignatureModal = false;
   isDrawing = false;
   signatureDone = false;
 
   private ctx?: CanvasRenderingContext2D;
+  private studentId = '';
+  private reportCardId = '';
 
-  students = [
-    {
-      id: '1',
-      name: 'Andrés Jaramillo Barón',
-      grade: '6° Primaria',
-      terms: [
-        {
-          id: '1',
-          name: 'Primer Trimestre',
-          period: 'Enero - Marzo 2026',
-          average: '9.4',
-          status: 'Firmada'
-        },
-        {
-          id: '2',
-          name: 'Segundo Trimestre',
-          period: 'Abril - Junio 2026',
-          average: '9.5',
-          status: 'Sin firmar'
-        }
-      ]
-    },
-    {
-      id: '2',
-      name: 'Emiliano Jaramillo Barón',
-      grade: '4° Primaria',
-      terms: [
-        {
-          id: '1',
-          name: 'Primer Trimestre',
-          period: 'Enero - Marzo 2026',
-          average: '8.1',
-          status: 'Firmada'
-        },
-        {
-          id: '2',
-          name: 'Segundo Trimestre',
-          period: 'Abril - Junio 2026',
-          average: '8.3',
-          status: 'Sin firmar'
-        }
-      ]
-    },
-    {
-      id: '3',
-      name: 'Hector Jaramillo Barón',
-      grade: '2° Primaria',
-      terms: [
-        {
-          id: '1',
-          name: 'Primer Trimestre',
-          period: 'Enero - Marzo 2026',
-          average: '7.6',
-          status: 'Firmada'
-        },
-        {
-          id: '2',
-          name: 'Segundo Trimestre',
-          period: 'Abril - Junio 2026',
-          average: '7.8',
-          status: 'Sin firmar'
-        }
-      ]
-    }
-  ];
+  constructor(
+    private route: ActivatedRoute,
+    private schoolDataService: SchoolDataService
+  ) {}
 
-  student = this.students[0];
-  term = this.students[0].terms[0];
+  ngOnInit() {
+    this.studentId = this.route.snapshot.paramMap.get('studentId') || '';
+    this.reportCardId = this.route.snapshot.paramMap.get('termId') || '';
 
-  subjects = [
-    {
-      name: 'Matemáticas',
-      teacher: 'Prof. Pedro Martínez',
-      grade: '9.7'
-    },
-    {
-      name: 'Español',
-      teacher: 'Profa. Laura González',
-      grade: '9.2'
-    },
-    {
-      name: 'Ciencias Naturales',
-      teacher: 'Prof. Ricardo Salazar',
-      grade: '9.5'
-    },
-    {
-      name: 'Historia de México',
-      teacher: 'Profa. Elena Navarro',
-      grade: '9.1'
-    },
-    {
-      name: 'Inglés',
-      teacher: 'Prof. Daniel Torres',
-      grade: '9.6'
-    },
-    {
-      name: 'Formación Cívica y Ética',
-      teacher: 'Profa. Mariana Ruiz',
-      grade: '9.3'
-    },
-    {
-      name: 'Educación Física',
-      teacher: 'Prof. Héctor Campos',
-      grade: '9.4'
-    },
-    {
-      name: 'Educación Artística',
-      teacher: 'Profa. Sofía Mendoza',
-      grade: '9.5'
-    }
-  ];
-
-  constructor(private route: ActivatedRoute) {
-    const studentId = this.route.snapshot.paramMap.get('studentId');
-    const termId = this.route.snapshot.paramMap.get('termId');
-
-    const foundStudent = this.students.find(student => student.id === studentId);
-
-    if (foundStudent) {
-      this.student = foundStudent;
-
-      const foundTerm = foundStudent.terms.find(term => term.id === termId);
-
-      if (foundTerm) {
-        this.term = foundTerm;
-      }
-    }
+    this.loadReportCardDetail();
   }
 
   ngAfterViewInit() {
     this.prepareCanvas();
+  }
+
+  loadReportCardDetail() {
+    this.schoolDataService.getStudentById(this.studentId).subscribe({
+      next: (student) => {
+        this.student = student;
+      },
+      error: (error) => {
+        console.error('Error al cargar estudiante:', error);
+      }
+    });
+
+    this.schoolDataService.getReportCardDetail(this.studentId, this.reportCardId).subscribe({
+      next: (reportCard) => {
+        this.reportCard = reportCard;
+        this.signatureDone = reportCard?.status === 'Firmada';
+      },
+      error: (error) => {
+        console.error('Error al cargar detalle de boleta:', error);
+      }
+    });
   }
 
   openSignatureModal() {
@@ -237,10 +155,23 @@ export class ReportCardDetailPage implements AfterViewInit {
   }
 
   confirmSignature() {
-    this.signatureDone = true;
-    this.showSignatureModal = false;
+    const canvas = this.signatureCanvas?.nativeElement;
 
-    console.log('Boleta firmada correctamente');
+    if (!canvas || !this.reportCard) {
+      return;
+    }
+
+    const signatureImage = canvas.toDataURL('image/png');
+
+    this.schoolDataService.signReportCard(this.reportCard.id, signatureImage).subscribe({
+      next: () => {
+        this.signatureDone = true;
+        this.showSignatureModal = false;
+      },
+      error: (error) => {
+        console.error('Error al firmar boleta:', error);
+      }
+    });
   }
 
   private getPoint(event: MouseEvent | TouchEvent) {

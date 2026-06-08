@@ -31,7 +31,7 @@ export const routes: Routes = [
     loadComponent: () => import('./parent/pages/report-card-detail/report-card-detail.page').then(m => m.ReportCardDetailPage)
   },
   {
-    path: 'comments',
+    path: 'comments/:studentId/:reportCardId',
     loadComponent: () => import('./parent/pages/comments/comments.page').then(m => m.CommentsPage)
   },
   {

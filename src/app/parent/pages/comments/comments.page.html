@@ -4,13 +4,16 @@
     <section class="comments-header">
       <ion-menu-button menu="main-menu" class="menu-button"></ion-menu-button>
 
-      <button class="back-button" routerLink="/report-card-detail/1/1">
+      <button
+        class="back-button"
+        [routerLink]="['/report-card-detail', student?.id, reportCard?.id]"
+      >
         ← Volver
       </button>
 
       <div class="header-text">
         <h1>Enviar comentarios</h1>
-        <p>Primer Trimestre</p>
+        <p>{{ reportCard?.termName || 'Boleta' }}</p>
       </div>
     </section>
 
@@ -25,16 +28,25 @@
         </div>
       </div>
 
-      <div class="message-card">
-        <p class="teacher-name">Prof. Pedro Martínez</p>
+      <div class="message-card" *ngFor="let comment of comments">
+        <p class="teacher-name">
+          {{ comment.teacherName }} · {{ comment.subjectName }}
+        </p>
 
         <p class="message-text">
-          Andrés demuestra un excelente dominio en matemáticas. Su razonamiento lógico
-          y dedicación son ejemplares. Continúe así.
+          {{ comment.message }}
         </p>
 
         <p class="message-date">
-          16 de marzo de 2026, 10:30
+          {{ comment.date }}
+        </p>
+      </div>
+
+      <div class="message-card" *ngIf="comments.length === 0">
+        <p class="teacher-name">Sin comentarios</p>
+
+        <p class="message-text">
+          Aún no existen comentarios registrados para esta boleta.
         </p>
       </div>
 
