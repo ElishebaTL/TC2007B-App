@@ -1,48 +1,60 @@
 <ion-content fullscreen class="login-content">
   <div class="login-wrapper">
 
-    <div class="logo-section">
-      <div class="logo-box">
-        <img src="assets/logo-escuela.png" alt="Logo escuela" />
+    <section class="login-card">
+
+      <div class="logo-container">
+        <div class="logo-box">
+          <img src="assets/logo-escuela.png" alt="Logo escuela" />
+        </div>
       </div>
 
-      <h1>Escuela Metropolitana La Luz</h1>
-      <p>Portal de Padres de Familia</p>
-    </div>
+      <div class="login-header">
+        <h1>Portal de Padres</h1>
+        <p>Escuela Metropolitana La Luz</p>
+      </div>
 
-    <ion-card class="login-card">
-      <ion-card-content>
+      <form class="login-form" (ngSubmit)="login()">
 
-        <div class="input-group">
+        <div class="form-group">
           <label>Correo electrónico</label>
-          <ion-input
+          <input
             type="email"
-            placeholder="correo@ejemplo.com"
-            fill="outline">
-          </ion-input>
+            name="email"
+            placeholder="Ingrese su correo"
+            [(ngModel)]="email"
+            autocomplete="email"
+          />
         </div>
 
-        <div class="input-group">
+        <div class="form-group">
           <label>Contraseña</label>
-          <ion-input
+          <input
             type="password"
-            placeholder="••••••••"
-            fill="outline">
-          </ion-input>
+            name="password"
+            placeholder="Ingrese su contraseña"
+            [(ngModel)]="password"
+            autocomplete="current-password"
+          />
         </div>
 
-        <ion-button expand="block" class="login-button" routerLink="/dashboard">
-          Iniciar sesión
-        </ion-button>
+        <p class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </p>
 
-        <a class="forgot-password">¿Olvidó su contraseña?</a>
+        <button class="login-button" type="submit" [disabled]="loading">
+          {{ loading ? 'Iniciando sesión...' : 'Iniciar sesión' }}
+        </button>
 
-      </ion-card-content>
-    </ion-card>
+      </form>
 
-    <p class="help-text">
-      ¿Necesita ayuda? Contacte a la escuela al (55) 1234-5678
-    </p>
+      <div class="demo-box">
+        <p>Usuario de prueba</p>
+        <strong>tutor@example.com</strong>
+        <span>Demo_Tutor123!</span>
+      </div>
+
+    </section>
 
   </div>
 </ion-content>

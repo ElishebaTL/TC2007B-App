@@ -35,6 +35,7 @@ export class ReportCardDetailPage implements OnInit, AfterViewInit {
   showSignatureModal = false;
   isDrawing = false;
   signatureDone = false;
+  downloadingPdf = false;
 
   private ctx?: CanvasRenderingContext2D;
   private studentId = '';
@@ -157,21 +158,51 @@ export class ReportCardDetailPage implements OnInit, AfterViewInit {
   confirmSignature() {
     const canvas = this.signatureCanvas?.nativeElement;
 
-    if (!canvas || !this.reportCard) {
+    if (!canvas || !this.student || !this.reportCard) {
       return;
     }
 
     const signatureImage = canvas.toDataURL('image/png');
 
-    this.schoolDataService.signReportCard(this.reportCard.id, signatureImage).subscribe({
-      next: () => {
-        this.signatureDone = true;
-        this.showSignatureModal = false;
-      },
-      error: (error) => {
-        console.error('Error al firmar boleta:', error);
-      }
-    });
+    this.schoolDataService
+      .signReportCard(this.student.id, this.reportCard.id, signatureImage)
+      .subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.signatureDone = true;
+
+            this.reportCard = {
+              ...this.reportCard!,
+              status: 'Firmada'
+            };
+
+            this.showSignatureModal = false;
+          }
+        },
+        error: (error) => {
+          console.error('Error al firmar boleta:', error);
+        }
+      });
+  }
+
+  downloadReportCardPdf() {
+    if (!this.student) {
+      return;
+    }
+
+    this.downloadingPdf = true;
+
+    this.schoolDataService
+      .downloadReportCardPdf(this.student.id, this.student.fullName)
+      .subscribe({
+        next: () => {
+          this.downloadingPdf = false;
+        },
+        error: (error) => {
+          this.downloadingPdf = false;
+          console.error('Error al descargar boleta PDF:', error);
+        }
+      });
   }
 
   private getPoint(event: MouseEvent | TouchEvent) {

@@ -1,63 +1,111 @@
 <ion-app>
-  <ion-menu menuId="main-menu" contentId="main-content" type="overlay" class="side-menu">
+
+  <ion-menu menuId="main-menu" contentId="main-content" side="start">
     <ion-content class="menu-content">
 
-      <div class="menu-header">
-        <ion-menu-toggle menu="main-menu">
-          <button class="close-menu" type="button">×</button>
-        </ion-menu-toggle>
+      <div class="sidebar-wrapper">
 
-        <div class="logo-box">
-          <img src="assets/logo-escuela.png" alt="Logo escuela" />
-        </div>
+        <section class="sidebar-header">
 
-        <h2>Escuela Metropolitana La Luz</h2>
-        <p>Portal de Padres</p>
-      </div>
+          <div class="close-row">
+            <button class="close-button" type="button" (click)="closeMenu()">
+              ×
+            </button>
+          </div>
 
-      <div class="menu-list">
+          <div class="sidebar-logo">
+            <img src="assets/logo-escuela.png" alt="Logo escuela" />
+          </div>
 
-        <ion-menu-toggle menu="main-menu" auto-hide="true">
-          <a routerLink="/dashboard" routerLinkActive="active" class="menu-item">
-            <span class="menu-icon">⌂</span>
-            <span>Inicio</span>
-          </a>
-        </ion-menu-toggle>
+          <div class="sidebar-title">
+            <h2>Portal de Padres</h2>
+            <p>Escuela Metropolitana La Luz</p>
+          </div>
 
-        <ion-menu-toggle menu="main-menu" auto-hide="true">
-          <a routerLink="/my-children" routerLinkActive="active" class="menu-item">
-            <span class="menu-icon">👥</span>
-            <span>Mis hijos</span>
-          </a>
-        </ion-menu-toggle>
+        </section>
 
-        <ion-menu-toggle menu="main-menu" auto-hide="true">
-          <a routerLink="/report-cards" routerLinkActive="active" class="menu-item">
-            <span class="menu-icon">▤</span>
-            <span>Boletas</span>
-          </a>
-        </ion-menu-toggle>
+        <nav class="sidebar-nav">
 
-        <ion-menu-toggle menu="main-menu" auto-hide="true">
-          <a routerLink="/notifications" routerLinkActive="active" class="menu-item">
+          <button
+            class="menu-option"
+            type="button"
+            routerLink="/dashboard"
+            (click)="closeMenu()"
+          >
+            <span class="menu-icon">🏠</span>
+
+            <div>
+              <h3>Inicio</h3>
+              <p>Panel principal</p>
+            </div>
+          </button>
+
+          <button
+            class="menu-option"
+            type="button"
+            routerLink="/my-children"
+            (click)="closeMenu()"
+          >
+            <span class="menu-icon">👨‍👩‍👧‍👦</span>
+
+            <div>
+              <h3>Mis hijos</h3>
+              <p>Estudiantes vinculados</p>
+            </div>
+          </button>
+
+          <button
+            class="menu-option"
+            type="button"
+            routerLink="/report-cards"
+            (click)="closeMenu()"
+          >
+            <span class="menu-icon">📄</span>
+
+            <div>
+              <h3>Boletas</h3>
+              <p>Calificaciones y firmas</p>
+            </div>
+          </button>
+
+          <button
+            class="menu-option"
+            type="button"
+            routerLink="/notifications"
+            (click)="closeMenu()"
+          >
             <span class="menu-icon">🔔</span>
-            <span>Notificaciones</span>
-          </a>
-        </ion-menu-toggle>
 
-      </div>
+            <div>
+              <h3>Notificaciones</h3>
+              <p>Avisos escolares</p>
+            </div>
+          </button>
 
-      <div class="logout-section">
-        <ion-menu-toggle menu="main-menu" auto-hide="true">
-          <a routerLink="/login" class="logout-item">
-            <span class="menu-icon">↪</span>
-            <span>Cerrar sesión</span>
-          </a>
-        </ion-menu-toggle>
+        </nav>
+
+        <section class="sidebar-footer">
+
+          <button
+            class="menu-option logout-option"
+            type="button"
+            (click)="logout()"
+          >
+            <span class="menu-icon">⎋</span>
+
+            <div>
+              <h3>Cerrar sesión</h3>
+              <p>Salir del portal</p>
+            </div>
+          </button>
+
+        </section>
+
       </div>
 
     </ion-content>
   </ion-menu>
 
   <ion-router-outlet id="main-content"></ion-router-outlet>
+
 </ion-app>

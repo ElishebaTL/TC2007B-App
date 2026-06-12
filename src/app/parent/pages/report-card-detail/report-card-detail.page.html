@@ -57,8 +57,13 @@
         </div>
       </div>
 
-      <button class="outline-button">
-        ⬇ Descargar PDF
+      <button
+        class="outline-button"
+        type="button"
+        (click)="downloadReportCardPdf()"
+        [disabled]="downloadingPdf"
+      >
+        {{ downloadingPdf ? 'Descargando PDF...' : '⬇ Descargar PDF' }}
       </button>
 
       <button class="sign-button" (click)="openSignatureModal()" *ngIf="!signatureDone">

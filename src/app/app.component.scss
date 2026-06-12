@@ -1,130 +1,154 @@
-.side-menu {
-  --width: 285px;
-}
-
-ion-menu::part(backdrop) {
-  background: rgba(15, 23, 42, 0.65);
+ion-menu {
+  --width: 310px;
 }
 
 ion-menu::part(container) {
-  border-radius: 0 0 18px 0;
-  overflow: hidden;
-  background: #ffffff;
+  border-radius: 0 28px 28px 0;
+  box-shadow: 12px 0 30px rgba(15, 23, 42, 0.18);
 }
 
 .menu-content {
   --background: #ffffff;
+}
+
+.sidebar-wrapper {
+  width: 100%;
+  min-height: 100%;
   background: #ffffff;
+  display: flex;
+  flex-direction: column;
 }
 
-.menu-header {
-  height: 220px;
-  padding: 22px 22px 20px;
-  background: #0b5cab;
+.sidebar-header {
+  padding: 22px 22px 26px;
+  background: linear-gradient(180deg, #0b5cab 0%, #084b8d 100%);
   color: #ffffff;
-  text-align: center;
-  position: relative;
+  border-radius: 0 0 26px 0;
 }
 
-.close-menu {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  width: 44px;
-  height: 44px;
+.close-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.close-button {
+  width: 34px;
+  height: 34px;
   border: none;
   border-radius: 50%;
-  background: #ffffff;
-  color: #334155;
-  font-size: 28px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-size: 26px;
   line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.logo-box {
-  width: 78px;
-  height: 78px;
-  margin: 52px auto 18px;
-  border-radius: 14px;
+.sidebar-logo {
+  width: 76px;
+  height: 76px;
+  margin-bottom: 16px;
+  border-radius: 21px;
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 7px 16px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.18);
 }
 
-.logo-box img {
-  width: 56px;
-  height: 56px;
+.sidebar-logo img {
+  width: 58px;
+  height: 58px;
   object-fit: contain;
 }
 
-.menu-header h2 {
+.sidebar-title h2 {
   margin: 0;
-  font-size: 15px;
+  font-size: 22px;
+  line-height: 1.15;
   font-weight: 900;
   color: #ffffff;
 }
 
-.menu-header p {
-  margin: 6px 0 0;
-  font-size: 12px;
+.sidebar-title p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.35;
   font-weight: 600;
   color: #dbeafe;
 }
 
-.menu-list {
-  padding: 18px 0;
-  background: #ffffff;
+.sidebar-nav {
+  flex: 1;
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.menu-item {
-  height: 56px;
-  padding: 0 24px;
+.menu-option {
+  width: 100%;
+  min-height: 68px;
+  padding: 13px 14px;
+  border: none;
+  border-radius: 18px;
+  background: #f8fafc;
   display: flex;
   align-items: center;
-  gap: 16px;
-  color: #475569;
-  background: #ffffff;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 800;
-  border-right: 4px solid transparent;
+  gap: 14px;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 2px 7px rgba(15, 23, 42, 0.05);
 }
 
-.menu-item.active {
-  background: #e7f4ff;
-  color: #0b5cab;
-  border-right-color: #0b5cab;
+.menu-option:active {
+  transform: scale(0.98);
 }
 
 .menu-icon {
-  width: 24px;
-  text-align: center;
-  font-size: 18px;
-}
-
-.logout-section {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 18px 0;
-  border-top: 1px solid #eef2f7;
-  background: #ffffff;
-}
-
-.logout-item {
-  height: 56px;
-  padding: 0 24px;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: #eaf4ff;
   display: flex;
   align-items: center;
-  gap: 16px;
-  color: #ef4444;
-  background: #ffffff;
-  text-decoration: none;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.menu-option h3 {
+  margin: 0;
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.menu-option p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.sidebar-footer {
+  padding: 0 16px 22px;
+}
+
+.logout-option {
+  background: #fff1f2;
+}
+
+.logout-option .menu-icon {
+  background: #ffe4e6;
+  color: #be123c;
+}
+
+.logout-option h3 {
+  color: #be123c;
+}
+
+.logout-option p {
+  color: #9f1239;
 }
